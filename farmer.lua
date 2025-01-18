@@ -32,11 +32,15 @@ local soils = {
 -- [ripe_plant] = {new_plant, seed_item, <extra_item>}
 local crops = {}
 for name, def in pairs(farming.registered_plants) do
-	local t = {def.crop.."_1", def.seed}
-	crops[def.crop.."_"..def.steps] = t
-	if name ~= "farming:cocoa_beans" and def.trellis then
-		t[3] = def.trellis
-		crops[def.trellis] = t
+  if def.crop == nil or def.seed == nil then
+    -- minetest.log("warning", "invalid plant: " .. dump(name) .. ": " .. dump(def))
+  else
+	  local t = {def.crop.."_1", def.seed}
+	  crops[def.crop.."_"..def.steps] = t
+	  if name ~= "farming:cocoa_beans" and def.trellis then
+		  t[3] = def.trellis
+		  crops[def.trellis] = t
+	  end
 	end
 end
 
